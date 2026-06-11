@@ -4,8 +4,9 @@
   "description": "A production-grade, 100% free API gateway that manages LLM costs, implements semantic caching, handles rate limiting, and provides intelligent model routing with fallback logic.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/app.js"
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -20,8 +21,10 @@
   },
   "homepage": "https://github.com/yashraj013/LLM-FinOps-Gateway#readme",
   "dependencies": {
+    "axios": "^1.17.0",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "ioredis": "^5.11.1",
     "mongoose": "^9.7.0",
     "nodemon": "^3.1.14"
   }

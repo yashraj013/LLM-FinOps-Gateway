@@ -1,18 +1,25 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import { connectRedis } from './config/redis.js';
 import connectDB from './config/database.js';
 
-dotenv.config();  // Load .env file
-
-await connectDB();  // Connect to MongoDB
+dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;  // Default to 3000 if not set
+const PORT = process.env.PORT || 3000;
 
-app.get('/', (req, res) => {
-  res.send('Welcome to the LLM FinOps Gateway!');
-});
+const startServer = async () => {
+  try {
+    await connectDB();
+    await connectRedis();
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error('Failed to start server:', error.message);
+    process.exit(1);
+  }
+};
+
+startServer();
